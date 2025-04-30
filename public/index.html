@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient One - Decentralized Health Records</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container navbar">
+      <div class="logo">
+        <i class="fas fa-heartbeat logo-icon"></i>
+        <span>Patient One</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/records">Records</a></li>
+        <li><a href="/access">Access Control</a></li>
+        <li><button id="connectWalletBtn" class="btn">Connect Wallet</button></li>
+      </ul>
+    </div>
+  </header>
+  
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Your Health Records, Secured on Blockchain</h1>
+      <p>Patient One ensures data privacy, eliminates paper records, and creates a transparent audit trail. Take control of your medical data with our decentralized solution.</p>
+      <div>
+        <a href="/dashboard" class="btn">Get Started</a>
+        <a href="#how-it-works" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Why Choose Patient One?</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-lock feature-icon"></i>
+          <h3>Secure & Private</h3>
+          <p>Your health records are encrypted and stored on IPFS with only the hash stored on blockchain for maximum security.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-user-shield feature-icon"></i>
+          <h3>Complete Control</h3>
+          <p>You decide who can access your records. Grant or revoke permissions to doctors and hospitals with a single click.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-chart-line feature-icon"></i>
+          <h3>Health Insights</h3>
+          <p>Visualize your health data with interactive charts and get meaningful insights about your medical history.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="features" style="background-color: #f0f8ff;">
+    <div class="container">
+      <div class="section-title">
+        <h2>How It Works</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="step-number">1</div>
+          <h3>Connect Your Wallet</h3>
+          <p>Log in securely using your Solana wallet. No passwords, no usernames - just your crypto wallet.</p>
+        </div>
+        <div class="feature-card">
+          <div class="step-number">2</div>
+          <h3>Upload Records</h3>
+          <p>Upload your medical reports, test results, and prescriptions. They're encrypted and stored on IPFS.</p>
+        </div>
+        <div class="feature-card">
+          <div class="step-number">3</div>
+          <h3>Manage Access</h3>
+          <p>Grant access to healthcare providers when needed and revoke it when you want.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Patient One</h3>
+          <ul>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/team">Our Team</a></li>
+            <li><a href="/mission">Our Mission</a></li>
+            <li><a href="/careers">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Features</h3>
+          <ul>
+            <li><a href="/features/security">Security</a></li>
+            <li><a href="/features/blockchain">Blockchain Technology</a></li>
+            <li><a href="/features/sharing">Secure Sharing</a></li>
+            <li><a href="/features/providers">For Providers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="/help">Help Center</a></li>
+            <li><a href="/faq">FAQs</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/resources">Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/compliance">Compliance</a></li>
+            <li><a href="/hipaa">HIPAA Information</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Patient One. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/wallet.js"></script>
+</body>
+</html>

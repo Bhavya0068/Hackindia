@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Control - Patient One</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+   :root {
+    --primary: #4a6fa5;
+      --secondary: #166088;
+      --accent: #4fc6e0;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --success: #28a745;
+      --danger: #dc3545;
+      --primary-light: #6fa1ff;
+      --primary-dark: #1a5dc4;
+      --text-dark: #2c3e50;
+      --text-light: #ffffff;
+      --bg-light: #f8f9fa;
+      --bg-dark: #343a40;
+      --warning: #ffab00;
+      --gray-light: #f5f7fa;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+ 
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Header */
+header {
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+.logo-icon {
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-right: 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links li {
+  margin-left: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.nav-links a.active {
+  color: var(--primary);
+  background-color: rgba(74, 111, 165, 0.1);
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+.btn-success {
+  background-color: var(--success);
+}
+
+.btn-success:hover {
+  background-color: #2d9300;
+}
+
+.btn-danger {
+  background-color: var(--danger);
+}
+
+.btn-danger:hover {
+  background-color: #d32f3a;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+/* Page Header */
+.page-header {
+  background-color: #e9f3ff;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-dark);
+}
+
+/* Access Control */
+.access-control-section {
+  margin-bottom: 3rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary);
+}
+
+.search-container {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  transition: var(--transition);
+}
+
+.search-container input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(74, 111, 165, 0.25);
+}
+
+.search-container button {
+  padding: 0.75rem 1rem;
+  background-color: var(--primary);
+  color: var(--text-light);
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.search-container button:hover {
+  background-color: var(--primary-dark);
+}
+
+.access-list, .pending-list {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.access-card, .pending-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.access-card:last-child, .pending-card:last-child {
+  border-bottom: none;
+}
+
+.access-card:hover, .pending-card:hover {
+  background-color: var(--gray-light);
+}
+
+.provider-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e9f3ff;
+  color: var(--primary);
+  border-radius: 50%;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+}
+
+.provider-info {
+  flex: 1;
+}
+
+.provider-name {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--text-dark);
+}
+
+.provider-role {
+  color: var(--text-dark);
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+.provider-address {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--text-dark);
+  margin-top: 0.25rem;
+  background-color: var(--gray-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.access-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.empty-list {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-dark);
+  opacity: 0.7;
+}
+
+.empty-list i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--border-color);
+}
+
+/* Activity Log */
+.activity-log {
+  margin-top: 2rem;
+}
+
+.log-list {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.log-item {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.log-item:last-child {
+  border-bottom: none;
+}
+
+.log-icon {
+  margin-right: 1rem;
+  color: var(--primary);
+}
+
+.log-details {
+  flex: 1;
+}
+
+.log-message {
+  margin-bottom: 0.25rem;
+  color: var(--text-dark);
+}
+
+.log-time {
+  font-size: 0.75rem;
+  color: var(--text-dark);
+  opacity: 0.7;
+}
+
+.log-granted {
+  color: var(--success);
+}
+
+.log-revoked {
+  color: var(--danger);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background-color: var(--card-bg);
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-overlay.show .modal {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-dark);
+  opacity: 0.7;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--danger);
+  opacity: 1;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  transition: var(--transition);
+  background-color: var(--card-bg);
+  color: var(--text-dark);
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(74, 111, 165, 0.25);
+  outline: none;
+}
+
+.access-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.access-option {
+  flex: 1 0 45%;
+  background-color: var(--gray-light);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.access-option:hover {
+  background-color: var(--light);
+}
+
+.access-option.selected {
+  background-color: #e9f3ff;
+  border-color: var(--primary);
+}
+
+.access-option-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  color: var(--text-dark);
+}
+
+.access-option-title i {
+  margin-right: 0.5rem;
+  color: var(--primary);
+}
+
+.access-option-desc {
+  font-size: 0.875rem;
+  color: var(--text-dark);
+  opacity: 0.7;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--dark);
+  color: var(--text-light);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Footer */
+footer {
+  background-color: var(--bg-dark);
+  padding: 3rem 0 1.5rem;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 2rem;
+  padding-right: 1.5rem;
+}
+
+.footer-column h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.footer-column p {
+  color: var(--text-light);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-column ul li a {
+  color: var(--text-light);
+  opacity: 0.8;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-column ul li a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  opacity: 0.7;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading i {
+  font-size: 2rem;
+  color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Toast Notification */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.toast {
+  background-color: var(--card-bg);
+  color: var(--text-dark);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  animation: slideIn 0.3s ease-out;
+  max-width: 350px;
+}
+
+.toast-success {
+  border-left: 4px solid var(--success);
+}
+
+.toast-error {
+  border-left: 4px solid var(--danger);
+}
+
+.toast-icon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.toast-success .toast-icon {
+  color: var(--success);
+}
+
+.toast-error .toast-icon {
+  color: var(--danger);
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.toast-message {
+  font-size: 0.875rem;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text-dark);
+  opacity: 0.7;
+  padding: 0.25rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 50px;
+  margin-left: 0.5rem;
+}
+
+.badge-primary {
+  background-color: #e9f3ff;
+  color: var(--primary);
+}
+
+.badge-success {
+  background-color: #d6f7dc;
+  color: var(--success);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--primary);
+}
+
+input:focus + .toggle-slider {
+  box-shadow: 0 0 1px var(--primary);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+/* Permission Details */
+.permission-details {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--gray-light);
+  border-radius: 5px;
+  display: none;
+}
+
+.permission-details.show {
+  display: block;
+}
+
+.permission-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.permission-item:last-child {
+  border-bottom: none;
+}
+
+.permission-name {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .access-card, .pending-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .provider-icon {
+    margin-bottom: 1rem;
+  }
+  
+  .access-actions {
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 76px;
+    left: 0;
+    background-color: var(--card-bg);
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    box-shadow: var(--shadow);
+    transform: translateY(-150%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 99;
+  }
+  
+  .nav-links.active {
+    transform: translateY(0);
+  }
+  
+  .nav-links li {
+    margin: 0.5rem 0;
+  }
+  
+  .footer-column {
+    flex: 0 0 50%;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .section-header .btn {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-column {
+    flex: 0 0 100%;
+  }
+  
+  .access-options {
+    flex-direction: column;
+  }
+  
+  .access-option {
+    flex: 1 0 100%;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container navbar">
+      <div class="logo">
+        <i class="fas fa-heartbeat logo-icon"></i>
+        <span>Patient One</span>
+      </div>
+      <button class="hamburger" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/records">Records</a></li>
+        <li><a href="/access" class="active">Access Control</a></li>
+        <li><button id="walletAddress" class="btn">Connect Wallet</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Access Control</h1>
+      <p>Manage who can access your medical records. Grant or revoke permissions for healthcare providers.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Active Access Section -->
+    <section class="access-control-section">
+      <div class="section-header">
+        <h2 class="section-title">Active Access</h2>
+        <button id="grantAccessBtn" class="btn">
+          <i class="fas fa-plus"></i> Grant New Access
+        </button>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="accessSearch" placeholder="Search providers by name, role, or wallet address...">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      
+      <div class="access-list" id="accessList">
+        <div id="accessListContent"></div>
+        <div id="loadingAccess" class="loading" style="display: none;">
+          <i class="fas fa-spinner"></i>
+          <p>Loading access list...</p>
+        </div>
+        <div id="emptyAccess" class="empty-list" style="display: none;">
+          <i class="fas fa-user-shield"></i>
+          <h3>No Active Access</h3>
+          <p>You haven't granted access to any healthcare providers yet.</p>
+          <button class="btn" id="emptyAccessBtn" style="margin-top: 1rem;">Grant Access</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Pending Requests Section -->
+    <section class="access-control-section">
+      <div class="section-header">
+        <h2 class="section-title">Pending Requests</h2>
+      </div>
+      
+      <div class="pending-list" id="pendingList">
+        <div id="pendingListContent"></div>
+        <div id="loadingPending" class="loading" style="display: none;">
+          <i class="fas fa-spinner"></i>
+          <p>Loading pending requests...</p>
+        </div>
+        <div id="emptyPending" class="empty-list" style="display: none;">
+          <i class="fas fa-clock"></i>
+          <h3>No Pending Requests</h3>
+          <p>You don't have any pending access requests at the moment.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Activity Log Section -->
+    <section class="access-control-section">
+      <div class="section-header">
+        <h2 class="section-title">Activity Log</h2>
+      </div>
+      
+      <div class="log-list" id="activityLog">
+        <div id="loadingLogs" class="loading" style="display: none;">
+          <i class="fas fa-spinner"></i>
+          <p>Loading activity logs...</p>
+        </div>
+        <div id="emptyLogs" class="empty-list" style="display: none;">
+          <i class="fas fa-clipboard-list"></i>
+          <h3>No Activity Logs</h3>
+          <p>Your access control activity will be displayed here.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Grant Access Modal -->
+  <div class="modal-overlay" id="grantAccessModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Grant Access</h3>
+        <button class="modal-close" id="closeGrantModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="grantAccessForm">
+          <div class="form-group">
+            <label class="form-label" for="providerAddress">Provider Wallet Address</label>
+            <input type="text" class="form-control" id="providerAddress" placeholder="Enter provider's wallet address" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="providerName">Provider Name</label>
+            <input type="text" class="form-control" id="providerName" placeholder="Enter provider's name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="providerRole">Provider Role</label>
+            <select class="form-control" id="providerRole" required>
+              <option value="">Select provider role</option>
+              <option value="Primary Care Physician">Primary Care Physician</option>
+              <option value="Specialist">Specialist</option>
+              <option value="Nurse">Nurse</option>
+              <option value="Laboratory">Laboratory</option>
+              <option value="Hospital">Hospital</option>
+              <option value="Pharmacy">Pharmacy</option>
+              <option value="Insurance">Insurance</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Access Level</label>
+            <div class="access-options">
+              <div class="access-option" data-level="read">
+                <div class="access-option-title">
+                  <i class="fas fa-eye"></i> Read Only
+                </div>
+                <div class="access-option-desc">
+                  Provider can only view your medical records but cannot make changes.
+                </div>
+              </div>
+              <div class="access-option" data-level="read-write">
+                <div class="access-option-title">
+                  <i class="fas fa-edit"></i> Read & Write
+                </div>
+                <div class="access-option-desc">
+                  Provider can view and add new information to your medical records.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Access Duration</label>
+            <select class="form-control" id="accessDuration" required>
+              <option value="1">1 day</option>
+              <option value="7">7 days</option>
+              <option value="30" selected>30 days</option>
+              <option value="90">90 days</option>
+              <option value="180">180 days</option>
+              <option value="365">1 year</option>
+              <option value="0">Unlimited</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancelGrantBtn">Cancel</button>
+        <button class="btn" id="confirmGrantBtn">Grant Access</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Revoke Access Modal -->
+  <div class="modal-overlay" id="revokeAccessModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Revoke Access</h3>
+        <button class="modal-close" id="closeRevokeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to revoke access for <strong id="revokeName">Provider Name</strong>?</p>
+        <p>They will no longer be able to view or modify your medical records.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancelRevokeBtn">Cancel</button>
+        <button class="btn btn-danger" id="confirmRevokeBtn">Revoke Access</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Permission Details Modal -->
+  <div class="modal-overlay" id="viewPermissionModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Permission Details</h3>
+        <button class="modal-close" id="closePermissionModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="permissionDetails">
+          <div class="provider-info">
+            <h4 id="permissionProviderName">Provider Name</h4>
+            <p id="permissionProviderRole" class="provider-role">Provider Role</p>
+            <p id="permissionProviderAddress" class="provider-address">0x123...abc</p>
+          </div>
+          
+          <div class="form-group" style="margin-top: 1.5rem;">
+            <label class="form-label">Access Level</label>
+            <div id="permissionAccessLevel">Read & Write</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Duration</label>
+            <div id="permissionDuration">Expires on May 15, 2023</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Record Categories</label>
+            <div class="permission-item">
+              <div class="permission-name">Medical History</div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked disabled>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="permission-item">
+              <div class="permission-name">Test Results</div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked disabled>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="permission-item">
+              <div class="permission-name">Medications</div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked disabled>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="permission-item">
+              <div class="permission-name">Allergies</div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked disabled>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="permission-item">
+              <div class="permission-name">Imaging & Scans</div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked disabled>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Last Accessed</label>
+            <div id="permissionLastAccessed">April 25, 2025 at 3:45 PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="modalRevokeBtn">Revoke Access</button>
+        <button class="btn" id="modalModifyBtn">Modify Access</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Patient One</h3>
+          <ul>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/team">Our Team</a></li>
+            <li><a href="/mission">Our Mission</a></li>
+            <li><a href="/careers">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Features</h3>
+          <ul>
+            <li><a href="/features/security">Security</a></li>
+            <li><a href="/features/blockchain">Blockchain Technology</a></li>
+            <li><a href="/features/sharing">Secure Sharing</a></li>
+            <li><a href="/features/providers">For Providers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="/help">Help Center</a></li>
+            <li><a href="/faq">FAQs</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/resources">Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/compliance">Compliance</a></li>
+            <li><a href="/hipaa">HIPAA Information</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Patient One. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // DOM Elements
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    const walletAddressBtn = document.getElementById('walletAddress');
+    const accessListContent = document.getElementById('accessListContent');
+    const pendingListContent = document.getElementById('pendingListContent');
+    const activityLog = document.getElementById('activityLog');
+    const loadingAccess = document.getElementById('loadingAccess');
+    const loadingPending = document.getElementById('loadingPending');
+    const loadingLogs = document.getElementById('loadingLogs');
+    const emptyAccess = document.getElementById('emptyAccess');
+    const emptyPending = document.getElementById('emptyPending');
+    const emptyLogs = document.getElementById('emptyLogs');
+    const grantAccessBtn = document.getElementById('grantAccessBtn');
+    const emptyAccessBtn = document.getElementById('emptyAccessBtn');
+    const grantAccessModal = document.getElementById('grantAccessModal');
+    const closeGrantModal = document.getElementById('closeGrantModal');
+    const cancelGrantBtn = document.getElementById('cancelGrantBtn');
+    const confirmGrantBtn = document.getElementById('confirmGrantBtn');
+    const revokeAccessModal = document.getElementById('revokeAccessModal');
+    const closeRevokeModal = document.getElementById('closeRevokeModal');
+    const cancelRevokeBtn = document.getElementById('cancelRevokeBtn');
+    const confirmRevokeBtn = document.getElementById('confirmRevokeBtn');
+    const revokeName = document.getElementById('revokeName');
+    const viewPermissionModal = document.getElementById('viewPermissionModal');
+    const closePermissionModal = document.getElementById('closePermissionModal');
+    const modalRevokeBtn = document.getElementById('modalRevokeBtn');
+    const modalModifyBtn = document.getElementById('modalModifyBtn');
+    const toastContainer = document.getElementById('toastContainer');
+    const accessSearch = document.getElementById('accessSearch');
+    const accessOptions = document.querySelectorAll('.access-option');
+    
+    // Mock Data (In a real application, this would come from blockchain)
+    let currentAddress = null;
+    let selectedProvider = null;
+    let selectedAccessLevel = 'read';
+    
+    // Sample providers data
+    const accessProviders = [
+      {
+        id: '1',
+        name: 'Dr. Sarah Johnson',
+        role: 'Primary Care Physician',
+        address: '5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty',
+        accessLevel: 'read-write',
+        expiryDate: '2025-05-30',
+        lastAccessed: '2025-04-25T15:45:00',
+        icon: 'user-md'
+      },
+      {
+        id: '2',
+        name: 'City Hospital Radiology',
+        role: 'Hospital',
+        address: '5DAAnrj7VHTznn2AWBemMuyBwZWs6FNFjdyVXUeYum3PTXFy',
+        accessLevel: 'read',
+        expiryDate: '2025-06-15',
+        lastAccessed: '2025-04-22T10:30:00',
+        icon: 'hospital-alt'
+      },
+      {
+        id: '3',
+        name: 'MedPath Labs',
+        role: 'Laboratory',
+        address: '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY',
+        accessLevel: 'read',
+        expiryDate: '2025-05-10',
+        lastAccessed: '2025-04-15T14:20:00',
+        icon: 'flask'
+      }
+    ];
+    
+    // Sample pending requests
+    const pendingRequests = [
+      {
+        id: '4',
+        name: 'Dr. Michael Chen',
+        role: 'Specialist',
+        address: '5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y',
+        requestDate: '2025-04-29T09:15:00',
+        icon: 'user-md'
+      }
+    ];
+    
+    // Sample activity logs
+    const activityLogs = [
+      {
+        action: 'granted',
+        provider: 'Dr. Sarah Johnson',
+        timestamp: '2025-04-10T10:30:00',
+        details: 'Read & Write access granted for 30 days'
+      },
+      {
+        action: 'viewed',
+        provider: 'Dr. Sarah Johnson',
+        timestamp: '2025-04-25T15:45:00',
+        details: 'Accessed Medical History and Test Results'
+      },
+      {
+        action: 'granted',
+        provider: 'City Hospital Radiology',
+        timestamp: '2025-04-15T14:20:00',
+        details: 'Read access granted for 60 days'
+      },
+      {
+        action: 'granted',
+        provider: 'MedPath Labs',
+        timestamp: '2025-04-10T09:45:00',
+        details: 'Read access granted for 30 days'
+      },
+      {
+        action: 'revoked',
+        provider: 'Health Insurance Co.',
+        timestamp: '2025-04-05T16:30:00',
+        details: 'Access revoked before expiration'
+      },
+      {
+        action: 'requested',
+        provider: 'Dr. Michael Chen',
+        timestamp: '2025-04-29T09:15:00',
+        details: 'Requested access to your medical records'
+      }
+    ];
+    
+    // Functions
+    function formatWalletAddress(address) {
+      if (!address) return '';
+      if (address.length <= 14) return address;
+      return `${address.slice(0, 6)}...${address.slice(-6)}`;
+    }
+    
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    }
+    
+    function formatDateTime(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+    
+    function calculateTimeAgo(dateString) {
+      const date = new Date(dateString);
+      const now = new Date();
+      const diffInSeconds = Math.floor((now - date) / 1000);
+      
+      if (diffInSeconds < 60) return 'just now';
+      if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+      if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+      if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} days ago`;
+      return formatDate(dateString);
+    }
+    
+    function renderAccessList() {
+      if (accessProviders.length === 0) {
+        loadingAccess.style.display = 'none';
+        emptyAccess.style.display = 'block';
+        return;
+      }
+      
+      loadingAccess.style.display = 'none';
+      emptyAccess.style.display = 'none';
+      
+      const searchTerm = accessSearch.value.toLowerCase();
+      const filteredProviders = accessProviders.filter(provider => 
+        provider.name.toLowerCase().includes(searchTerm) ||
+        provider.role.toLowerCase().includes(searchTerm) ||
+        provider.address.toLowerCase().includes(searchTerm)
+      );
+      
+      if (filteredProviders.length === 0) {
+        accessListContent.innerHTML = `
+          <div class="empty-list">
+            <i class="fas fa-search"></i>
+            <h3>No Results Found</h3>
+            <p>No providers match your search criteria.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      
+      filteredProviders.forEach(provider => {
+        const isExpiring = new Date(provider.expiryDate) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+        
+        html += `
+          <div class="access-card" data-id="${provider.id}">
+            <div class="provider-icon">
+              <i class="fas fa-${provider.icon}"></i>
+            </div>
+            <div class="provider-info">
+              <div class="provider-name">
+                ${provider.name}
+                <span class="badge ${provider.accessLevel === 'read-write' ? 'badge-success' : 'badge-primary'}">
+                  ${provider.accessLevel === 'read-write' ? 'Read & Write' : 'Read Only'}
+                </span>
+              </div>
+              <div class="provider-role">${provider.role}</div>
+              <div class="provider-address">${formatWalletAddress(provider.address)}</div>
+              <div style="font-size: 0.75rem; margin-top: 0.5rem; ${isExpiring ? 'color: #e63946;' : ''}">
+                <i class="fas fa-clock" style="margin-right: 0.25rem;"></i>
+                ${isExpiring ? 'Expires soon: ' : 'Expires: '}${formatDate(provider.expiryDate)}
+              </div>
+              <div style="font-size: 0.75rem; margin-top: 0.25rem; color: var(--gray-color);">
+                <i class="fas fa-history" style="margin-right: 0.25rem;"></i>
+                Last accessed: ${calculateTimeAgo(provider.lastAccessed)}
+              </div>
+            </div>
+            <div class="access-actions">
+              <button class="btn btn-sm btn-outline view-permissions-btn" data-id="${provider.id}">
+                <i class="fas fa-eye"></i> Details
+              </button>
+              <button class="btn btn-sm btn-danger revoke-access-btn" data-id="${provider.id}">
+                <i class="fas fa-ban"></i> Revoke
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      
+      accessListContent.innerHTML = html;
+      
+      // Add event listeners to newly created buttons
+      document.querySelectorAll('.revoke-access-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const providerId = e.currentTarget.getAttribute('data-id');
+          const provider = accessProviders.find(p => p.id === providerId);
+          
+          if (provider) {
+            revokeName.textContent = provider.name;
+            selectedProvider = provider;
+            openModal(revokeAccessModal);
+          }
+        });
+      });
+      
+      document.querySelectorAll('.view-permissions-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const providerId = e.currentTarget.getAttribute('data-id');
+          const provider = accessProviders.find(p => p.id === providerId);
+          
+          if (provider) {
+            document.getElementById('permissionProviderName').textContent = provider.name;
+            document.getElementById('permissionProviderRole').textContent = provider.role;
+            document.getElementById('permissionProviderAddress').textContent = provider.address;
+            document.getElementById('permissionAccessLevel').textContent = 
+              provider.accessLevel === 'read-write' ? 'Read & Write' : 'Read Only';
+            document.getElementById('permissionDuration').textContent = 
+              `Expires on ${formatDate(provider.expiryDate)}`;
+            document.getElementById('permissionLastAccessed').textContent = 
+              formatDateTime(provider.lastAccessed);
+            
+            selectedProvider = provider;
+            openModal(viewPermissionModal);
+          }
+        });
+      });
+    }
+    
+    function renderPendingList() {
+      if (pendingRequests.length === 0) {
+        loadingPending.style.display = 'none';
+        emptyPending.style.display = 'block';
+        return;
+      }
+      
+      loadingPending.style.display = 'none';
+      emptyPending.style.display = 'none';
+      
+      let html = '';
+      
+      pendingRequests.forEach(request => {
+        html += `
+          <div class="pending-card">
+            <div class="provider-icon">
+              <i class="fas fa-${request.icon}"></i>
+            </div>
+            <div class="provider-info">
+              <div class="provider-name">${request.name}</div>
+              <div class="provider-role">${request.role}</div>
+              <div class="provider-address">${formatWalletAddress(request.address)}</div>
+              <div style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray-color);">
+                <i class="fas fa-clock" style="margin-right: 0.25rem;"></i>
+                Requested: ${calculateTimeAgo(request.requestDate)}
+              </div>
+            </div>
+            <div class="access-actions">
+              <button class="btn btn-sm btn-outline deny-request-btn" data-id="${request.id}">
+                <i class="fas fa-times"></i> Deny
+              </button>
+              <button class="btn btn-sm btn-success approve-request-btn" data-id="${request.id}">
+                <i class="fas fa-check"></i> Approve
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      
+      pendingListContent.innerHTML = html;
+      
+      // Add event listeners to newly created buttons
+      document.querySelectorAll('.approve-request-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const requestId = e.currentTarget.getAttribute('data-id');
+          const request = pendingRequests.find(r => r.id === requestId);
+          
+          if (request) {
+            // Simulate approving request
+            pendingRequests.splice(pendingRequests.indexOf(request), 1);
+            
+            // Add to access providers
+            const newProvider = {
+              id: request.id,
+              name: request.name,
+              role: request.role,
+              address: request.address,
+              accessLevel: 'read',
+              expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+              lastAccessed: null,
+              icon: request.icon
+            };
+            
+            accessProviders.push(newProvider);
+            
+            // Update logs
+            activityLogs.unshift({
+              action: 'granted',
+              provider: request.name,
+              timestamp: new Date().toISOString(),
+              details: 'Read access granted for 30 days'
+            });
+            
+            renderPendingList();
+            renderAccessList();
+            renderActivityLog();
+            
+            showToast('Access Granted', `${request.name} can now access your medical records.`, 'success');
+          }
+        });
+      });
+      
+      document.querySelectorAll('.deny-request-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const requestId = e.currentTarget.getAttribute('data-id');
+          const request = pendingRequests.find(r => r.id === requestId);
+          
+          if (request) {
+            // Simulate denying request
+            pendingRequests.splice(pendingRequests.indexOf(request), 1);
+            
+            // Update logs
+            activityLogs.unshift({
+              action: 'denied',
+              provider: request.name,
+              timestamp: new Date().toISOString(),
+              details: 'Access request denied'
+            });
+            
+            renderPendingList();
+            renderActivityLog();
+            
+            showToast('Request Denied', `Access request from ${request.name} has been denied.`, 'success');
+          }
+        });
+      });
+    }
+    
+    function renderActivityLog() {
+      if (activityLogs.length === 0) {
+        loadingLogs.style.display = 'none';
+        emptyLogs.style.display = 'block';
+        return;
+      }
+      
+      loadingLogs.style.display = 'none';
+      emptyLogs.style.display = 'none';
+      
+      let html = '';
+      
+      activityLogs.slice(0, 10).forEach(log => {
+        let iconClass = 'fa-info-circle';
+        let colorClass = '';
+        
+        switch (log.action) {
+          case 'granted':
+            iconClass = 'fa-check-circle';
+            colorClass = 'log-granted';
+            break;
+          case 'revoked':
+            iconClass = 'fa-ban';
+            colorClass = 'log-revoked';
+            break;
+          case 'viewed':
+            iconClass = 'fa-eye';
+            break;
+          case 'denied':
+            iconClass = 'fa-times-circle';
+            colorClass = 'log-revoked';
+            break;
+          case 'requested':
+            iconClass = 'fa-question-circle';
+            break;
+        }
+        
+        html += `
+          <div class="log-item">
+            <div class="log-icon ${colorClass}">
+              <i class="fas ${iconClass}"></i>
+            </div>
+            <div class="log-details">
+              <div class="log-message">
+                <strong>${log.provider}</strong> - 
+                ${log.action === 'granted' ? 'Access granted' : ''}
+                ${log.action === 'revoked' ? 'Access revoked' : ''}
+                ${log.action === 'viewed' ? 'Viewed your records' : ''}
+                ${log.action === 'denied' ? 'Access request denied' : ''}
+                ${log.action === 'requested' ? 'Requested access' : ''}
+              </div>
+              <div class="log-time">
+                ${calculateTimeAgo(log.timestamp)} - ${log.details}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      activityLog.innerHTML = html;
+    }
+    
+    function openModal(modal) {
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal(modal) {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    
+    function closeAllModals() {
+      document.querySelectorAll('.modal-overlay').forEach(modal => {
+        closeModal(modal);
+      });
+    }
+    
+    function showToast(title, message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.classList.add('toast', type === 'success' ? 'toast-success' : 'toast-error');
+      
+      toast.innerHTML = `
+        <div class="toast-icon">
+          <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        </div>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close">&times;</button>
+      `;
+      
+      toastContainer.appendChild(toast);
+      
+      // Auto remove toast after 5 seconds
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 5000);
+      
+      // Close button functionality
+      toast.querySelector('.toast-close').addEventListener('click', () => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      });
+    }
+    
+    function connectWallet() {
+      // Simulate wallet connection
+      loadingAccess.style.display = 'block';
+      loadingPending.style.display = 'block';
+      loadingLogs.style.display = 'block';
+      
+      setTimeout(() => {
+        currentAddress = '5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y';
+        walletAddressBtn.innerHTML = `
+          <i class="fas fa-wallet"></i>
+          ${formatWalletAddress(currentAddress)}
+        `;
+        
+        renderAccessList();
+        renderPendingList();
+        renderActivityLog();
+        
+        showToast('Wallet Connected', 'Successfully connected to your wallet.', 'success');
+      }, 1500);
+    }
+    
+    // Event Listeners
+    hamburgerBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    walletAddressBtn.addEventListener('click', connectWallet);
+    
+    grantAccessBtn.addEventListener('click', () => {
+      openModal(grantAccessModal);
+    });
+    
+    emptyAccessBtn.addEventListener('click', () => {
+      openModal(grantAccessModal);
+    });
+    
+    closeGrantModal.addEventListener('click', () => {
+      closeModal(grantAccessModal);
+    });
+    
+    cancelGrantBtn.addEventListener('click', () => {
+      closeModal(grantAccessModal);
+    });
+    
+    closeRevokeModal.addEventListener('click', () => {
+      closeModal(revokeAccessModal);
+    });
+    
+    cancelRevokeBtn.addEventListener('click', () => {
+      closeModal(revokeAccessModal);
+    });
+    
+    closePermissionModal.addEventListener('click', () => {
+      closeModal(viewPermissionModal);
+    });
+    
+    modalRevokeBtn.addEventListener('click', () => {
+      closeModal(viewPermissionModal);
+      
+      // Use the selected provider from the details modal
+      if (selectedProvider) {
+        revokeName.textContent = selectedProvider.name;
+        openModal(revokeAccessModal);
+      }
+    });
+    
+    modalModifyBtn.addEventListener('click', () => {
+      closeModal(viewPermissionModal);
+      // In a real app, this would open a modify access modal
+      showToast('Coming Soon', 'Access modification will be available in a future update.', 'success');
+    });
+    
+    confirmRevokeBtn.addEventListener('click', () => {
+      if (selectedProvider) {
+        // Simulate revoking access
+        accessProviders.splice(accessProviders.findIndex(p => p.id === selectedProvider.id), 1);
+        
+        // Update logs
+        activityLogs.unshift({
+          action: 'revoked',
+          provider: selectedProvider.name,
+          timestamp: new Date().toISOString(),
+          details: 'Access revoked before expiration'
+        });
+        
+        renderAccessList();
+        renderActivityLog();
+        
+        showToast('Access Revoked', `${selectedProvider.name} can no longer access your medical records.`, 'success');
+        selectedProvider = null;
+      }
+      
+      closeModal(revokeAccessModal);
+    });
+    
+    confirmGrantBtn.addEventListener('click', () => {
+      const providerAddress = document.getElementById('providerAddress').value;
+      const providerName = document.getElementById('providerName').value;
+      const providerRole = document.getElementById('providerRole').value;
+      const accessDuration = document.getElementById('accessDuration').value;
+      
+      if (!providerAddress || !providerName || !providerRole) {
+        showToast('Invalid Input', 'Please fill in all required fields.', 'error');
+        return;
+      }
+      
+      // Simulate granting access
+      const expiryDate = accessDuration === '0' 
+        ? new Date(2099, 11, 31).toISOString() // Unlimited
+        : new Date(Date.now() + parseInt(accessDuration) * 24 * 60 * 60 * 1000).toISOString();
+      
+      const newProvider = {
+        id: `new-${Date.now()}`,
+        name: providerName,
+        role: providerRole,
+        address: providerAddress,
+        accessLevel: selectedAccessLevel,
+        expiryDate: expiryDate,
+        lastAccessed: null,
+        icon: providerRole.toLowerCase().includes('physician') || providerRole.toLowerCase().includes('doctor') 
+          ? 'user-md' 
+          : providerRole.toLowerCase().includes('hospital') 
+            ? 'hospital-alt' 
+            : providerRole.toLowerCase().includes('lab') 
+              ? 'flask' 
+              : 'user'
+      };
+      
+      accessProviders.push(newProvider);
+      
+      // Update logs
+      activityLogs.unshift({
+        action: 'granted',
+        provider: providerName,
+        timestamp: new Date().toISOString(),
+        details: `${selectedAccessLevel === 'read-write' ? 'Read & Write' : 'Read Only'} access granted for ${accessDuration === '0' ? 'unlimited time' : accessDuration + ' days'}`
+      });
+      
+      renderAccessList();
+      renderActivityLog();
+      
+      showToast('Access Granted', `${providerName} can now access your medical records.`, 'success');
+      
+      // Reset form
+      document.getElementById('grantAccessForm').reset();
+      selectedAccessLevel = 'read';
+      accessOptions.forEach(option => {
+        option.classList.remove('selected');
+      });
+      document.querySelector('.access-option[data-level="read"]').classList.add('selected');
+      
+      closeModal(grantAccessModal);
+    });
+    
+    accessSearch.addEventListener('input', () => {
+      renderAccessList();
+    });
+    
+    // Access option selection
+    accessOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        accessOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        selectedAccessLevel = option.getAttribute('data-level');
+      });
+    });
+    
+    // Initialize access options
+    document.querySelector('.access-option[data-level="read"]').classList.add('selected');
+    
+    // Close modals when clicking outside
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal(modal);
+        }
+      });
+    });
+    
+    // Initialize the page
+    connectWallet();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient One - Medical Records</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4a6fa5;
+      --secondary: #166088;
+      --accent: #4fc6e0;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --success: #28a745;
+      --danger: #dc3545;
+      --primary-light: #6fa1ff;
+      --primary-dark: #1a5dc4;
+      --text-dark: #2c3e50;
+      --text-light: #ffffff;
+      --bg-light: #f8f9fa;
+      --bg-dark: #343a40;
+      --warning: #ffab00;
+      --gray-light: #f5f7fa;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .logo-icon {
+      font-size: 1.8rem;
+      color: var(--text-light);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: var(--text-dark);
+      border: 1px solid #ddd;
+    }
+
+    .btn-secondary:hover {
+      background-color: #f8f9fa;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-danger {
+      background-color: var(--danger);
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background-color: #e53000;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 61, 0, 0.3);
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 600;
+      animation: fadeInLeft 0.5s ease;
+    }
+
+    .page-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* Cards and Record Items */
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      animation: fadeIn 0.5s ease;
+      margin-bottom: 2rem;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .card-body {
+      padding: 0;
+    }
+
+    .card-footer {
+      padding: 1.5rem;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .records-info {
+      color: #666;
+    }
+
+    .categories-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .category-card {
+      flex: 1;
+      min-width: 200px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background-color: var(--primary);
+    }
+
+    .category-card h3 {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .category-card p {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .category-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    /* Records Table */
+    .records-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .records-table th, 
+    .records-table td {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .records-table th {
+      font-weight: 600;
+      color: #555;
+      background-color: #f8f9fa;
+    }
+
+    .records-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .records-table tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    .status {
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .status-active {
+      background-color: rgba(0, 200, 83, 0.15);
+      color: var(--success);
+    }
+
+    .status-pending {
+      background-color: rgba(255, 171, 0, 0.15);
+      color: var(--warning);
+    }
+
+    .status-archived {
+      background-color: rgba(158, 158, 158, 0.15);
+      color: #757575;
+    }
+
+    /* Form elements */
+    .filter-section {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+      outline: none;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+    }
+
+    .filter-dropdown {
+      position: relative;
+    }
+
+    .filter-dropdown .btn {
+      border: 1px solid #ddd;
+      background-color: white;
+    }
+
+    .filter-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: white;
+      border-radius: 6px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      min-width: 200px;
+      z-index: 10;
+      padding: 1rem;
+      display: none;
+    }
+
+    .filter-menu.show {
+      display: block;
+      animation: fadeInDown 0.3s ease;
+    }
+
+    .filter-group {
+      margin-bottom: 1rem;
+    }
+
+    .filter-group-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+
+    .checkbox-item input {
+      cursor: pointer;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background-color: white;
+      border: 1px solid #eee;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background-color: #f8f9fa;
+      transform: translateY(-2px);
+    }
+
+    .action-btn.view:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .action-btn.edit:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .action-btn.delete:hover {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    .action-btn.share:hover {
+      color: var(--success);
+      border-color: var(--success);
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-50px);
+      transition: all 0.3s ease;
+    }
+
+    .modal.show .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #777;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--danger);
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .modal-footer {
+      padding: 1.5rem;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    .form-row {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+      outline: none;
+    }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23333'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1rem;
+    }
+
+    /* File upload styling */
+    .file-upload {
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    .file-upload:hover {
+      border-color: var(--primary);
+      background-color: rgba(58, 123, 213, 0.05);
+    }
+
+    .file-upload i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .file-upload p {
+      margin-bottom: 0.5rem;
+    }
+
+    .file-upload input {
+      display: none;
+    }
+
+    .file-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .file-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+
+    .file-name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .file-icon {
+      color: var(--primary);
+    }
+
+    .file-remove {
+      color: var(--danger);
+      cursor: pointer;
+    }
+
+    /* Record View */
+    .record-view {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .record-details {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .record-meta {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .record-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .record-title {
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .record-subtitle {
+      color: #777;
+      margin-bottom: 1rem;
+    }
+
+    .metadata-item {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+
+    .metadata-label {
+      width: 120px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .metadata-value {
+      flex: 1;
+    }
+
+    .doc-preview {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+    }
+
+    .preview-image {
+      max-width: 100%;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .record-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .action-card {
+      background-color: var(--gray-light);
+      border-radius: 8px;
+      padding: 1rem;
+      transition: all 0.3s;
+    }
+
+    .action-card:hover {
+      background-color: #e9ecef;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      list-style: none;
+      gap: 0.5rem;
+    }
+
+    .page-item {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .page-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .page-item.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .page-item.disabled {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 9999;
+    }
+
+    .toast {
+      padding: 1rem 1.5rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      animation: slideInRight 0.3s ease;
+    }
+
+    .toast-success {
+      border-left: 4px solid var(--success);
+    }
+
+    .toast-error {
+      border-left: 4px solid var(--danger);
+    }
+
+    .toast-icon {
+      font-size: 1.5rem;
+    }
+
+    .toast-success .toast-icon {
+      color: var(--success);
+    }
+
+    .toast-error .toast-icon {
+      color: var(--danger);
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      padding: 3rem 1rem 1rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 40px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-column a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInLeft {
+      from { 
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from { 
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from { 
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Mobile Nav */
+    .mobile-nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .record-view {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-nav-toggle {
+        display: block;
+      }
+      
+      .navbar {
+        position: relative;
+      }
+      
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--primary);
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem 0;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-links.show {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .nav-links li a {
+        display: block;
+        padding: 0.75rem;
+      }
+      
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .page-actions {
+        width: 100%;
+      }
+      
+      .categories-list {
+        flex-direction: column;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .modal-content {
+        max-width: 90%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .navbar {
+        padding: 1rem;
+      }
+      
+      .nav-links li a {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+      }
+      
+      .card-header,
+      .card-footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      
+      .filter-section {
+        width: 100%;
+      }
+      
+      .btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .records-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container navbar">
+      <div class="logo">
+        <i class="fas fa-heartbeat logo-icon"></i>
+        <span>Patient One</span>
+      </div>
+      <button class="mobile-nav-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/records" class="active">Records</a></li>
+        <li><a href="/access">Access Control</a></li>
+        <li><button id="connectWalletBtn" class="btn btn-secondary">Connect Wallet</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="page-header">
+      <h1 class="page-title">My Medical Records</h1>
+      <div class="page-actions">
+        <button class="btn btn-primary" id="uploadRecordBtn">
+          <i class="fas fa-upload"></i> Upload Record
+        </button>
+        <button class="btn btn-secondary">
+          <i class="fas fa-download"></i> Export All
+        </button>
+      </div>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="categories-list">
+      <div class="category-card">
+        <h3><i class="fas fa-file-medical text-primary"></i> Medical Reports</h3>
+        <p>Lab results, diagnostic reports, and physician notes</p>
+        <div class="category-stats">
+          <span>12 Records</span>
+          <span>Last updated: Apr 28, 2025</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <h3><i class="fas fa-pills text-primary"></i> Prescriptions</h3>
+        <p>Current and past medication prescriptions</p>
+        <div class="category-stats">
+          <span>8 Records</span>
+          <span>Last updated: Apr 15, 2025</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <h3><i class="fas fa-procedures text-primary"></i> Treatment Plans</h3>
+        <p>Ongoing and completed treatment protocols</p>
+        <div class="category-stats">
+          <span>4 Records</span>
+          <span>Last updated: Mar 30, 2025</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <h3><i class="fas fa-x-ray text-primary"></i> Imaging</h3>
+        <p>X-rays, MRIs, CT scans and other imaging records</p>
+        <div class="category-stats">
+          <span>6 Records</span>
+          <span>Last updated: Apr 20, 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Records Table Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">All Records</h2>
+        <div class="filter-section">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search records..." id="searchInput">
+          </div>
+          <div class="filter-dropdown">
+            <button class="btn" id="filterBtn">
+              <i class="fas fa-filter"></i> Filter
+            </button>
+            <div class="filter-menu" id="filterMenu">
+              <div class="filter-group">
+                <h3 class="filter-group-title">Status</h3>
+                <label class="checkbox-item">
+                  <input type="checkbox" checked> Verified
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" checked> Pending
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox"> Archived
+                </label>
+              </div>
+              <!-- Continuing from where the document was cut off -->
+              <div class="filter-group">
+                <h3 class="filter-group-title">Record Type</h3>
+                <label class="checkbox-item">
+                  <input type="checkbox" checked> Medical Reports
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" checked> Prescriptions
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" checked> Treatment Plans
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" checked> Imaging
+                </label>
+              </div>
+              <div class="filter-group">
+                <h3 class="filter-group-title">Date Range</h3>
+                <div class="form-row">
+                  <label class="form-label">From</label>
+                  <input type="date" class="form-control">
+                </div>
+                <div class="form-row">
+                  <label class="form-label">To</label>
+                  <input type="date" class="form-control">
+                </div>
+              </div>
+              <div class="form-row">
+                <button class="btn btn-primary">Apply Filters</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>Record ID</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Provider</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>REC-2025-0429</td>
+              <td>Blood Work Results</td>
+              <td>Medical Report</td>
+              <td>Apr 29, 2025</td>
+              <td>Metro Clinical Labs</td>
+              <td><span class="status status-active">Verified</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn view" data-record-id="REC-2025-0429">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="action-btn share">
+                    <i class="fas fa-share-alt"></i>
+                  </button>
+                  <button class="action-btn download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>REC-2025-0425</td>
+              <td>Metformin Prescription</td>
+              <td>Prescription</td>
+              <td>Apr 25, 2025</td>
+              <td>Dr. Sarah Johnson</td>
+              <td><span class="status status-active">Verified</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn view" data-record-id="REC-2025-0425">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="action-btn share">
+                    <i class="fas fa-share-alt"></i>
+                  </button>
+                  <button class="action-btn download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>REC-2025-0420</td>
+              <td>Chest X-Ray</td>
+              <td>Imaging</td>
+              <td>Apr 20, 2025</td>
+              <td>City General Hospital</td>
+              <td><span class="status status-active">Verified</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn view" data-record-id="REC-2025-0420">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="action-btn share">
+                    <i class="fas fa-share-alt"></i>
+                  </button>
+                  <button class="action-btn download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>REC-2025-0415</td>
+              <td>Diabetes Management Plan</td>
+              <td>Treatment Plan</td>
+              <td>Apr 15, 2025</td>
+              <td>Dr. Sarah Johnson</td>
+              <td><span class="status status-active">Verified</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn view" data-record-id="REC-2025-0415">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="action-btn share">
+                    <i class="fas fa-share-alt"></i>
+                  </button>
+                  <button class="action-btn download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>REC-2025-0410</td>
+              <td>HbA1c Test Results</td>
+              <td>Medical Report</td>
+              <td>Apr 10, 2025</td>
+              <td>Metro Clinical Labs</td>
+              <td><span class="status status-active">Verified</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn view" data-record-id="REC-2025-0410">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="action-btn share">
+                    <i class="fas fa-share-alt"></i>
+                  </button>
+                  <button class="action-btn download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>REC-2025-0405</td>
+              <td>Annual Physical Examination</td>
+              <td>Medical Report</td>
+              <td>Apr 5, 2025</td>
+              <td>Dr. Robert Chen</td>
+              <td><span class="status status-pending">Pending</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn view" data-record-id="REC-2025-0405">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="action-btn share">
+                    <i class="fas fa-share-alt"></i>
+                  </button>
+                  <button class="action-btn download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <div class="records-info">Showing 6 of 30 records</div>
+        <ul class="pagination">
+          <li class="page-item disabled"><i class="fas fa-chevron-left"></i></li>
+          <li class="page-item active">1</li>
+          <li class="page-item">2</li>
+          <li class="page-item">3</li>
+          <li class="page-item">4</li>
+          <li class="page-item">5</li>
+          <li class="page-item"><i class="fas fa-chevron-right"></i></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Upload Modal -->
+  <div class="modal" id="uploadModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Upload Medical Record</h2>
+        <button class="modal-close" id="closeUploadModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="uploadForm">
+          <div class="form-row">
+            <label class="form-label" for="recordName">Record Name</label>
+            <input type="text" class="form-control" id="recordName" placeholder="Enter record name">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="recordType">Record Type</label>
+            <select class="form-control" id="recordType">
+              <option>Select type</option>
+              <option>Medical Report</option>
+              <option>Prescription</option>
+              <option>Treatment Plan</option>
+              <option>Imaging</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="providerName">Healthcare Provider</label>
+            <input type="text" class="form-control" id="providerName" placeholder="Enter provider name">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="recordDate">Date</label>
+            <input type="date" class="form-control" id="recordDate">
+          </div>
+          <div class="form-row">
+            <label class="form-label">Upload Files</label>
+            <div class="file-upload" id="fileDropArea">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & drop files here or</p>
+              <button type="button" class="btn btn-outline" id="browseBtn">Browse Files</button>
+              <p class="text-muted">Supports PDF, JPG, PNG (max 20MB)</p>
+              <input type="file" id="fileInput" multiple hidden>
+            </div>
+            <ul class="file-list" id="fileList"></ul>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="notes">Notes</label>
+            <textarea class="form-control" id="notes" rows="3" placeholder="Add any relevant notes"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelUpload">Cancel</button>
+        <button class="btn btn-primary" id="submitUpload">Upload</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Record Modal -->
+  <div class="modal" id="viewModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Record Details</h2>
+        <button class="modal-close" id="closeViewModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="record-view">
+          <div class="record-details">
+            <div class="record-header">
+              <h1 class="record-title" id="viewRecordTitle">Blood Work Results</h1>
+              <p class="record-subtitle">Record ID: <span id="viewRecordId">REC-2025-0429</span></p>
+            </div>
+            <div class="metadata-item">
+              <div class="metadata-label">Type:</div>
+              <div class="metadata-value" id="viewRecordType">Medical Report</div>
+            </div>
+            <div class="metadata-item">
+              <div class="metadata-label">Date:</div>
+              <div class="metadata-value" id="viewRecordDate">April 29, 2025</div>
+            </div>
+            <div class="metadata-item">
+              <div class="metadata-label">Provider:</div>
+              <div class="metadata-value" id="viewRecordProvider">Metro Clinical Labs</div>
+            </div>
+            <div class="metadata-item">
+              <div class="metadata-label">Status:</div>
+              <div class="metadata-value">
+                <span class="status status-active" id="viewRecordStatus">Verified</span>
+              </div>
+            </div>
+            <div class="metadata-item">
+              <div class="metadata-label">Blockchain ID:</div>
+              <div class="metadata-value" id="viewRecordBlockchain">0x7d8f...b5e3</div>
+            </div>
+            <div class="metadata-item">
+              <div class="metadata-label">Notes:</div>
+              <div class="metadata-value" id="viewRecordNotes">
+                Routine blood work for diabetes management. All values within normal range except for slightly elevated LDL cholesterol.
+              </div>
+            </div>
+            
+            <div class="doc-preview">
+              <img src="/api/placeholder/600/800" alt="Medical Record Preview" class="preview-image">
+              <p>This document has been cryptographically verified and is securely stored on the blockchain.</p>
+            </div>
+          </div>
+          
+          <div class="record-meta">
+            <h3>Record Activity</h3>
+            <div class="action-card">
+              <p><strong>Uploaded</strong> on Apr 29, 2025 at 10:32 AM</p>
+              <p class="text-muted">By: You</p>
+            </div>
+            <div class="action-card">
+              <p><strong>Verified</strong> on Apr 29, 2025 at 10:45 AM</p>
+              <p class="text-muted">By: Metro Clinical Labs</p>
+            </div>
+            <div class="action-card">
+              <p><strong>Viewed</strong> on Apr 29, 2025 at 02:15 PM</p>
+              <p class="text-muted">By: Dr. Sarah Johnson</p>
+            </div>
+            
+            <div class="record-actions">
+              <button class="btn btn-primary">
+                <i class="fas fa-share-alt"></i> Share Record
+              </button>
+              <button class="btn btn-secondary">
+                <i class="fas fa-download"></i> Download
+              </button>
+              <button class="btn btn-outline">
+                <i class="fas fa-history"></i> View History
+              </button>
+              <button class="btn btn-danger">
+                <i class="fas fa-trash"></i> Delete Record
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toastContainer">
+    <!-- Toast notifications will be added here dynamically -->
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Patient One</h3>
+          <ul>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/team">Our Team</a></li>
+            <li><a href="/mission">Our Mission</a></li>
+            <li><a href="/careers">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Features</h3>
+          <ul>
+            <li><a href="/features/security">Security</a></li>
+            <li><a href="/features/blockchain">Blockchain Technology</a></li>
+            <li><a href="/features/sharing">Secure Sharing</a></li>
+            <li><a href="/features/providers">For Providers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="/help">Help Center</a></li>
+            <li><a href="/faq">FAQs</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/resources">Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/compliance">Compliance</a></li>
+            <li><a href="/hipaa">HIPAA Information</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Patient One. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile Navigation Toggle
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      
+      mobileNavToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('show');
+      });
+      
+      // Filter Dropdown
+      const filterBtn = document.getElementById('filterBtn');
+      const filterMenu = document.getElementById('filterMenu');
+      
+      filterBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        filterMenu.classList.toggle('show');
+      });
+      
+      document.addEventListener('click', function(e) {
+        if (!filterMenu.contains(e.target) && e.target !== filterBtn) {
+          filterMenu.classList.remove('show');
+        }
+      });
+      
+      // Modal Controls
+      const uploadRecordBtn = document.getElementById('uploadRecordBtn');
+      const uploadModal = document.getElementById('uploadModal');
+      const closeUploadModal = document.getElementById('closeUploadModal');
+      const cancelUpload = document.getElementById('cancelUpload');
+      
+      uploadRecordBtn.addEventListener('click', function() {
+        uploadModal.classList.add('show');
+      });
+      
+      closeUploadModal.addEventListener('click', function() {
+        uploadModal.classList.remove('show');
+      });
+      
+      cancelUpload.addEventListener('click', function() {
+        uploadModal.classList.remove('show');
+      });
+      
+      // View Record Modal
+      const viewBtns = document.querySelectorAll('.action-btn.view');
+      const viewModal = document.getElementById('viewModal');
+      const closeViewModal = document.getElementById('closeViewModal');
+      
+      viewBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const recordId = this.getAttribute('data-record-id');
+          // Here you would typically fetch the record data using the ID
+          // For now, we'll just show the modal with sample data
+          document.getElementById('viewRecordId').textContent = recordId;
+          
+          // Update the modal content based on which record was clicked
+          // This is simplified for demo purposes
+          if (recordId === 'REC-2025-0429') {
+            document.getElementById('viewRecordTitle').textContent = 'Blood Work Results';
+            document.getElementById('viewRecordType').textContent = 'Medical Report';
+            document.getElementById('viewRecordDate').textContent = 'April 29, 2025';
+            document.getElementById('viewRecordProvider').textContent = 'Metro Clinical Labs';
+          } else if (recordId === 'REC-2025-0425') {
+            document.getElementById('viewRecordTitle').textContent = 'Metformin Prescription';
+            document.getElementById('viewRecordType').textContent = 'Prescription';
+            document.getElementById('viewRecordDate').textContent = 'April 25, 2025';
+            document.getElementById('viewRecordProvider').textContent = 'Dr. Sarah Johnson';
+          }
+          
+          viewModal.classList.add('show');
+        });
+      });
+      
+      closeViewModal.addEventListener('click', function() {
+        viewModal.classList.remove('show');
+      });
+      
+      // File Upload Functionality
+      const fileDropArea = document.getElementById('fileDropArea');
+      const fileInput = document.getElementById('fileInput');
+      const browseBtn = document.getElementById('browseBtn');
+      const fileList = document.getElementById('fileList');
+      
+      browseBtn.addEventListener('click', function() {
+        fileInput.click();
+      });
+      
+      fileInput.addEventListener('change', function() {
+        handleFiles(this.files);
+      });
+      
+      // Drag and drop events
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        fileDropArea.addEventListener(eventName, preventDefaults, false);
+      });
+      
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      ['dragenter', 'dragover'].forEach(eventName => {
+        fileDropArea.addEventListener(eventName, highlight, false);
+      });
+      
+      ['dragleave', 'drop'].forEach(eventName => {
+        fileDropArea.addEventListener(eventName, unhighlight, false);
+      });
+      
+      function highlight() {
+        fileDropArea.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+        fileDropArea.style.backgroundColor = 'rgba(58, 123, 213, 0.1)';
+      }
+      
+      function unhighlight() {
+        fileDropArea.style.borderColor = '#ddd';
+        fileDropArea.style.backgroundColor = '';
+      }
+      
+      fileDropArea.addEventListener('drop', function(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles(files);
+      });
+      
+      function handleFiles(files) {
+        files = [...files];
+        files.forEach(uploadFile);
+      }
+      
+      function uploadFile(file) {
+        // In a real app, you would upload the file to a server
+        // For this demo, we'll just add it to the list
+        const item = document.createElement('li');
+        item.className = 'file-item';
+        
+        const fileIcon = getFileIcon(file.name);
+        
+        item.innerHTML = `
+          <div class="file-name">
+            <i class="${fileIcon} file-icon"></i>
+            ${file.name}
+          </div>
+          <i class="fas fa-times file-remove"></i>
+        `;
+        
+        fileList.appendChild(item);
+        
+        // Remove file functionality
+        const removeBtn = item.querySelector('.file-remove');
+        removeBtn.addEventListener('click', function() {
+          item.remove();
+        });
+      }
+      
+      function getFileIcon(filename) {
+        const ext = filename.split('.').pop().toLowerCase();
+        switch(ext) {
+          case 'pdf':
+            return 'fas fa-file-pdf';
+          case 'jpg':
+          case 'jpeg':
+          case 'png':
+            return 'fas fa-file-image';
+          case 'doc':
+          case 'docx':
+            return 'fas fa-file-word';
+          default:
+            return 'fas fa-file';
+        }
+      }
+      
+      // Form submission
+      const submitUploadBtn = document.getElementById('submitUpload');
+      const uploadForm = document.getElementById('uploadForm');
+      
+      submitUploadBtn.addEventListener('click', function() {
+        // Here you would normally submit the form data
+        // For this demo, we'll just show a success message
+        showToast('Records uploaded successfully!', 'success');
+        uploadModal.classList.remove('show');
+        // Reset form
+        uploadForm.reset();
+        fileList.innerHTML = '';
+      });
+      
+      // Connect Wallet Button
+      const connectWalletBtn = document.getElementById('connectWalletBtn');
+      
+      connectWalletBtn.addEventListener('click', function() {
+        // In a real app, this would integrate with MetaMask or another wallet
+        this.innerHTML = '<i class="fas fa-check-circle"></i> Connected';
+        this.classList.remove('btn-secondary');
+        this.classList.add('btn-primary');
+        showToast('Wallet connected successfully!', 'success');
+      });
+      
+      // Search functionality
+      const searchInput = document.getElementById('searchInput');
+      const tableRows = document.querySelectorAll('.records-table tbody tr');
+      
+      searchInput.addEventListener('keyup', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        tableRows.forEach(row => {
+          const text = row.textContent.toLowerCase();
+          if(text.includes(searchTerm)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+      
+      // Toast notification function
+      function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        
+        const icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
+        
+        toast.innerHTML = `
+          <div class="toast-icon">
+            <i class="fas fa-${icon}"></i>
+          </div>
+          <div class="toast-content">
+            <p>${message}</p>
+          </div>
+        `;
+        
+        const toastContainer = document.getElementById('toastContainer');
+        toastContainer.appendChild(toast);
+        
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => {
+            toast.remove();
+          }, 300);
+        }, 3000);
+      }
+      
+      // Pagination (simplified)
+      const paginationItems = document.querySelectorAll('.pagination li:not(.disabled)');
+      
+      paginationItems.forEach(item => {
+        item.addEventListener('click', function() {
+          document.querySelector('.page-item.active').classList.remove('active');
+          this.classList.add('active');
+          // In a real app, this would fetch and display a different page of records
+        });
+      });
+    });
+  </script>
+</body>
+</html>
